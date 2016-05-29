@@ -84,16 +84,22 @@
 
 
 
-<meta name="description" content="Welcome to [Hexo]">
+<meta name="description" content="最小二乘法 之 线性函数模型原理可参考维基百科 最小二乘法中间计算过程有多种方法（如梯度下降），本文采用维基百科最后介绍的广义逆矩阵的方法计算。即输入矩阵的广义逆矩阵&amp;lt;点乘&amp;gt;输出矩阵 ，运算结果既为求解的 参数矩阵。
+需要用到的函数为 pinv ，matlab中pinv(X) , Python中numpy库中有此函数，即 ： np.linalg.pinv代码：‘’’python
+#Gl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://zzukun.com/2015/12/06/hello-world/index.html">
+<meta property="og:title" content="Python机器学习:最小二乘法之线性函数">
+<meta property="og:url" content="http://zzukun.com/2016/05/29/Python机器学习-最小二乘法之线性函数/index.html">
 <meta property="og:site_name" content="Kun Li's Homepage">
-<meta property="og:description" content="Welcome to [Hexo]">
-<meta property="og:updated_time" content="2015-12-09T05:23:24.000Z">
+<meta property="og:description" content="最小二乘法 之 线性函数模型原理可参考维基百科 最小二乘法中间计算过程有多种方法（如梯度下降），本文采用维基百科最后介绍的广义逆矩阵的方法计算。即输入矩阵的广义逆矩阵&amp;lt;点乘&amp;gt;输出矩阵 ，运算结果既为求解的 参数矩阵。
+需要用到的函数为 pinv ，matlab中pinv(X) , Python中numpy库中有此函数，即 ： np.linalg.pinv代码：‘’’python
+#Gl">
+<meta property="og:updated_time" content="2016-05-29T10:19:24.913Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to [Hexo]">
+<meta name="twitter:title" content="Python机器学习:最小二乘法之线性函数">
+<meta name="twitter:description" content="最小二乘法 之 线性函数模型原理可参考维基百科 最小二乘法中间计算过程有多种方法（如梯度下降），本文采用维基百科最后介绍的广义逆矩阵的方法计算。即输入矩阵的广义逆矩阵&amp;lt;点乘&amp;gt;输出矩阵 ，运算结果既为求解的 参数矩阵。
+需要用到的函数为 pinv ，matlab中pinv(X) , Python中numpy库中有此函数，即 ： np.linalg.pinv代码：‘’’python
+#Gl">
 
 
 
@@ -111,7 +117,7 @@
   };
 </script>
 
-  <title> Hello World | Kun Li's Homepage </title>
+  <title> Python机器学习:最小二乘法之线性函数 | Kun Li's Homepage </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -239,7 +245,7 @@
   
   
 
-  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
       <header class="post-header">
@@ -250,7 +256,7 @@
             
             
               
-                Hello World
+                Python机器学习:最小二乘法之线性函数
               
             
           </h1>
@@ -262,8 +268,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-06T18:28:10+08:00" content="2015-12-06">
-              2015-12-06
+            <time itemprop="dateCreated" datetime="2016-05-29T18:07:49+08:00" content="2016-05-29">
+              2016-05-29
             </time>
           </span>
 
@@ -273,8 +279,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/06/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/06/hello-world/" itemprop="commentsCount"></span>
+                <a href="/2016/05/29/Python机器学习-最小二乘法之线性函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/29/Python机器学习-最小二乘法之线性函数/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -297,7 +303,35 @@
       
 
       
-        <p>Welcome to [Hexo]</p>
+        <p>最小二乘法 之 线性函数模型<br>原理可参考维基百科 <a href="https://zh.wikipedia.org/wiki/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95" target="_blank" rel="external">最小二乘法</a><br>中间计算过程有多种方法（如梯度下降），本文采用维基百科最后介绍的<font color="red">广义逆矩阵</font>的方法计算。<br>即输入矩阵的广义逆矩阵&lt;点乘&gt;输出矩阵 ，运算结果既为求解的 参数矩阵。</p>
+<p>需要用到的函数为 pinv ，matlab中pinv(X) , Python中numpy库中有此函数，即 ： np.linalg.pinv<br>代码：<br>‘’’python</p>
+<p>#Global Vars<br>global params</p>
+<p>#train function<br>def train(train_x , train_y):<br>    global params</p>
+<pre><code>pinv = np.linalg.pinv(train_x)  # cacul the pseudo-inverse matrix
+
+params = np.dot( pinv , train_y ) # figure out the params
+print(&apos;The params:&apos;)
+print(params)
+</code></pre><p>‘’’</p>
+<p>np.linalg.pinv求得train_x的广义逆矩阵 pinv ， pinv 点乘 train_y 即得参数矩阵 params<br>以上即为训练过程。</p>
+<p>随后可以进行回归：  即将测试数据的x矩阵点乘参数矩阵 ，可得模型得到的输出。<br>代码：<br>‘’’python</p>
+<p>#test function<br>def test(test_x , test_y , result_path):<br>    global params</p>
+<pre><code>rs = open(result_path , &apos;w&apos;)
+
+regressValue = np.dot(test_x,params)
+print(&apos;The regress value of test data:&apos;)
+print(regressValue)
+
+print(&apos;-------------------------------------------------------&apos;)
+print(&apos;The errors:&apos;)
+err = regressValue - test_y
+print(err)
+print(&apos;The RMSE(root mean squared error) is:&apos;)
+MRSE  =  math.sqrt(np.sum(np.square(err)) / regressValue.size)
+print(MRSE)
+print(&apos;-------------------------------------------------------&apos;)
+</code></pre><p>‘’’</p>
+<p>回归完成以后，可以通过MRSE（root mean squared error）观察回归效果。<br>代码下载地址：<a href="http://download.csdn.net/detail/zzukun/9210049" target="_blank" rel="external">点我进入下载页面</a></p>
 
       
     </div>
@@ -322,13 +356,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/03/22/Ubuntu指令与快捷键/" rel="next" title="Ubuntu指令与快捷键">
+                <i class="fa fa-chevron-left"></i> Ubuntu指令与快捷键
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/06/测试发表文章/" rel="prev" title="测试发表文章">
-                测试发表文章 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -582,9 +616,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'zzukun';
-      var disqus_identifier = '2015/12/06/hello-world/';
-      var disqus_title = "Hello World";
-      var disqus_url = 'http://zzukun.com/2015/12/06/hello-world/';
+      var disqus_identifier = '2016/05/29/Python机器学习-最小二乘法之线性函数/';
+      var disqus_title = "Python机器学习:最小二乘法之线性函数";
+      var disqus_url = 'http://zzukun.com/2016/05/29/Python机器学习-最小二乘法之线性函数/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
