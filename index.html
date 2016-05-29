@@ -304,33 +304,9 @@
         
           
             <p>最小二乘法 之 线性函数模型<br>原理可参考维基百科 <a href="https://zh.wikipedia.org/wiki/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95" target="_blank" rel="external">最小二乘法</a><br>中间计算过程有多种方法（如梯度下降），本文采用维基百科最后介绍的<font color="red">广义逆矩阵</font>的方法计算。<br>即输入矩阵的广义逆矩阵&lt;点乘&gt;输出矩阵 ，运算结果既为求解的 参数矩阵。</p>
-<p>需要用到的函数为 pinv ，matlab中pinv(X) , Python中numpy库中有此函数，即 ： np.linalg.pinv<br>代码：<br>‘’’python</p>
-<p>#Global Vars<br>global params</p>
-<p>#train function<br>def train(train_x , train_y):<br>    global params</p>
-<pre><code>pinv = np.linalg.pinv(train_x)  # cacul the pseudo-inverse matrix
-
-params = np.dot( pinv , train_y ) # figure out the params
-print(&apos;The params:&apos;)
-print(params)
-</code></pre><p>‘’’</p>
+<p>需要用到的函数为 pinv ，matlab中pinv(X) , Python中numpy库中有此函数，即 ： np.linalg.pinv<br>代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Global Vars  </span></span><br><span class="line"><span class="keyword">global</span> params</span><br><span class="line">  </span><br><span class="line"><span class="comment">#train function  </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(train_x , train_y)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> params</span><br><span class="line">  </span><br><span class="line">    pinv = np.linalg.pinv(train_x)  <span class="comment"># cacul the pseudo-inverse matrix</span></span><br><span class="line">      </span><br><span class="line">    params = np.dot( pinv , train_y ) <span class="comment"># figure out the params</span></span><br><span class="line">    print(<span class="string">'The params:'</span>)</span><br><span class="line">    print(params)</span><br></pre></td></tr></table></figure></p>
 <p>np.linalg.pinv求得train_x的广义逆矩阵 pinv ， pinv 点乘 train_y 即得参数矩阵 params<br>以上即为训练过程。</p>
-<p>随后可以进行回归：  即将测试数据的x矩阵点乘参数矩阵 ，可得模型得到的输出。<br>代码：<br>‘’’python</p>
-<p>#test function<br>def test(test_x , test_y , result_path):<br>    global params</p>
-<pre><code>rs = open(result_path , &apos;w&apos;)
-
-regressValue = np.dot(test_x,params)
-print(&apos;The regress value of test data:&apos;)
-print(regressValue)
-
-print(&apos;-------------------------------------------------------&apos;)
-print(&apos;The errors:&apos;)
-err = regressValue - test_y
-print(err)
-print(&apos;The RMSE(root mean squared error) is:&apos;)
-MRSE  =  math.sqrt(np.sum(np.square(err)) / regressValue.size)
-print(MRSE)
-print(&apos;-------------------------------------------------------&apos;)
-</code></pre><p>‘’’</p>
+<p>随后可以进行回归：  即将测试数据的x矩阵点乘参数矩阵 ，可得模型得到的输出。<br>代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#test function  </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(test_x , test_y , result_path)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> params</span><br><span class="line">  </span><br><span class="line">    rs = open(result_path , <span class="string">'w'</span>)</span><br><span class="line">  </span><br><span class="line">    regressValue = np.dot(test_x,params)</span><br><span class="line">    print(<span class="string">'The regress value of test data:'</span>)</span><br><span class="line">    print(regressValue)</span><br><span class="line">  </span><br><span class="line">    print(<span class="string">'-------------------------------------------------------'</span>)</span><br><span class="line">    print(<span class="string">'The errors:'</span>)</span><br><span class="line">    err = regressValue - test_y</span><br><span class="line">    print(err)</span><br><span class="line">    print(<span class="string">'The RMSE(root mean squared error) is:'</span>)</span><br><span class="line">    MRSE  =  math.sqrt(np.sum(np.square(err)) / regressValue.size)</span><br><span class="line">    print(MRSE)</span><br><span class="line">    print(<span class="string">'-------------------------------------------------------'</span>)</span><br></pre></td></tr></table></figure></p>
 <p>回归完成以后，可以通过MRSE（root mean squared error）观察回归效果。<br>代码下载地址：<a href="http://download.csdn.net/detail/zzukun/9210049" target="_blank" rel="external">点我进入下载页面</a></p>
 
           
