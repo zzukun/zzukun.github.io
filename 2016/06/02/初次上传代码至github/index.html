@@ -84,19 +84,25 @@
 
 
 
-<meta name="description" content="最小二乘法 之 线性函数模型原理可参考维基百科 最小二乘法中间计算过程有多种方法（如梯度下降），本文采用维基百科最后介绍的广义逆矩阵的方法计算。即输入矩阵的广义逆矩阵&amp;lt;点乘&amp;gt;输出矩阵 ，运算结果既为求解的 参数矩阵。
-需要用到的函数为 pinv ，matlab中pinv(X) , Python中numpy库中有此函数，即 ： np.linalg.pinv代码：1234567891011">
+<meta name="description" content="首先，在你github中的repositories页面，新建一个repo，随后即可获得一个地址，类似于：https://github.com/your_git_id/your_repo_name.git
+
+打开终端，切换到需要提交的目录：
+123456git initpull https://github.com/you_git_id/your_repo_name.gitgit add .git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python机器学习:最小二乘法之线性函数">
-<meta property="og:url" content="http://zzukun.com/2016/05/29/Python机器学习-最小二乘法之线性函数/index.html">
+<meta property="og:title" content="初次上传代码至github">
+<meta property="og:url" content="http://zzukun.com/2016/06/02/初次上传代码至github/index.html">
 <meta property="og:site_name" content="Kun Li's Homepage">
-<meta property="og:description" content="最小二乘法 之 线性函数模型原理可参考维基百科 最小二乘法中间计算过程有多种方法（如梯度下降），本文采用维基百科最后介绍的广义逆矩阵的方法计算。即输入矩阵的广义逆矩阵&amp;lt;点乘&amp;gt;输出矩阵 ，运算结果既为求解的 参数矩阵。
-需要用到的函数为 pinv ，matlab中pinv(X) , Python中numpy库中有此函数，即 ： np.linalg.pinv代码：1234567891011">
-<meta property="og:updated_time" content="2016-05-29T11:41:08.553Z">
+<meta property="og:description" content="首先，在你github中的repositories页面，新建一个repo，随后即可获得一个地址，类似于：https://github.com/your_git_id/your_repo_name.git
+
+打开终端，切换到需要提交的目录：
+123456git initpull https://github.com/you_git_id/your_repo_name.gitgit add .git">
+<meta property="og:updated_time" content="2016-06-02T03:35:22.074Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python机器学习:最小二乘法之线性函数">
-<meta name="twitter:description" content="最小二乘法 之 线性函数模型原理可参考维基百科 最小二乘法中间计算过程有多种方法（如梯度下降），本文采用维基百科最后介绍的广义逆矩阵的方法计算。即输入矩阵的广义逆矩阵&amp;lt;点乘&amp;gt;输出矩阵 ，运算结果既为求解的 参数矩阵。
-需要用到的函数为 pinv ，matlab中pinv(X) , Python中numpy库中有此函数，即 ： np.linalg.pinv代码：1234567891011">
+<meta name="twitter:title" content="初次上传代码至github">
+<meta name="twitter:description" content="首先，在你github中的repositories页面，新建一个repo，随后即可获得一个地址，类似于：https://github.com/your_git_id/your_repo_name.git
+
+打开终端，切换到需要提交的目录：
+123456git initpull https://github.com/you_git_id/your_repo_name.gitgit add .git">
 
 
 
@@ -114,7 +120,7 @@
   };
 </script>
 
-  <title> Python机器学习:最小二乘法之线性函数 | Kun Li's Homepage </title>
+  <title> 初次上传代码至github | Kun Li's Homepage </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -253,7 +259,7 @@
             
             
               
-                Python机器学习:最小二乘法之线性函数
+                初次上传代码至github
               
             
           </h1>
@@ -265,8 +271,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-29T18:07:49+08:00" content="2016-05-29">
-              2016-05-29
+            <time itemprop="dateCreated" datetime="2016-06-02T11:30:28+08:00" content="2016-06-02">
+              2016-06-02
             </time>
           </span>
 
@@ -276,8 +282,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/29/Python机器学习-最小二乘法之线性函数/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/29/Python机器学习-最小二乘法之线性函数/" itemprop="commentsCount"></span>
+                <a href="/2016/06/02/初次上传代码至github/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/02/初次上传代码至github/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -300,11 +306,16 @@
       
 
       
-        <p>最小二乘法 之 线性函数模型<br>原理可参考维基百科 <a href="https://zh.wikipedia.org/wiki/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95" target="_blank" rel="external">最小二乘法</a><br>中间计算过程有多种方法（如梯度下降），本文采用维基百科最后介绍的<font color="red">广义逆矩阵</font>的方法计算。<br>即输入矩阵的广义逆矩阵&lt;点乘&gt;输出矩阵 ，运算结果既为求解的 参数矩阵。</p>
-<p>需要用到的函数为 pinv ，matlab中pinv(X) , Python中numpy库中有此函数，即 ： np.linalg.pinv<br>代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Global Vars  </span></span><br><span class="line"><span class="keyword">global</span> params</span><br><span class="line">  </span><br><span class="line"><span class="comment">#train function  </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(train_x , train_y)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> params</span><br><span class="line">  </span><br><span class="line">    pinv = np.linalg.pinv(train_x)  <span class="comment"># cacul the pseudo-inverse matrix</span></span><br><span class="line">      </span><br><span class="line">    params = np.dot( pinv , train_y ) <span class="comment"># figure out the params</span></span><br><span class="line">    print(<span class="string">'The params:'</span>)</span><br><span class="line">    print(params)</span><br></pre></td></tr></table></figure></p>
-<p>np.linalg.pinv求得train_x的广义逆矩阵 pinv ， pinv 点乘 train_y 即得参数矩阵 params<br>以上即为训练过程。</p>
-<p>随后可以进行回归：  即将测试数据的x矩阵点乘参数矩阵 ，可得模型得到的输出。<br>代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#test function  </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(test_x , test_y , result_path)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> params</span><br><span class="line">  </span><br><span class="line">    rs = open(result_path , <span class="string">'w'</span>)</span><br><span class="line">  </span><br><span class="line">    regressValue = np.dot(test_x,params)</span><br><span class="line">    print(<span class="string">'The regress value of test data:'</span>)</span><br><span class="line">    print(regressValue)</span><br><span class="line">  </span><br><span class="line">    print(<span class="string">'-------------------------------------------------------'</span>)</span><br><span class="line">    print(<span class="string">'The errors:'</span>)</span><br><span class="line">    err = regressValue - test_y</span><br><span class="line">    print(err)</span><br><span class="line">    print(<span class="string">'The RMSE(root mean squared error) is:'</span>)</span><br><span class="line">    MRSE  =  math.sqrt(np.sum(np.square(err)) / regressValue.size)</span><br><span class="line">    print(MRSE)</span><br><span class="line">    print(<span class="string">'-------------------------------------------------------'</span>)</span><br></pre></td></tr></table></figure></p>
-<p>回归完成以后，可以通过MRSE（root mean squared error）观察回归效果。<br>代码下载地址：<a href="http://download.csdn.net/detail/zzukun/9210049" target="_blank" rel="external">点我进入下载页面</a></p>
+        <ul>
+<li><p>首先，在你github中的repositories页面，新建一个repo，随后即可获得一个地址，类似于：<br><a href="https://github.com/your_git_id/your_repo_name.git" target="_blank" rel="external">https://github.com/your_git_id/your_repo_name.git</a></p>
+</li>
+<li><p>打开终端，切换到需要提交的目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">pull https://github.com/you_git_id/your_repo_name.git</span><br><span class="line">git add .</span><br><span class="line">git commit -m &apos;commit&apos;</span><br><span class="line">git remote add origin https://github.com/you_git_id/your_repo_name.git</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<p>第三行中，点代表所有文件，指定特定文件输入文件名代替点。</p>
+</li>
+<li><p>最后一个命令会提示输入用户名与密码，输入即可上传。</p>
+</li>
+</ul>
 
       
     </div>
@@ -329,17 +340,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/22/Ubuntu指令与快捷键/" rel="next" title="Ubuntu指令与快捷键">
-                <i class="fa fa-chevron-left"></i> Ubuntu指令与快捷键
+              <a href="/2016/06/01/使用LaTex在Linux中制作简历/" rel="next" title="使用LaTex在Linux中制作简历">
+                <i class="fa fa-chevron-left"></i> 使用LaTex在Linux中制作简历
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/01/ubuntu编译运行c代码-g/" rel="prev" title="ubuntu编译运行c代码(g++)">
-                ubuntu编译运行c代码(g++) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -593,9 +600,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'zzukun';
-      var disqus_identifier = '2016/05/29/Python机器学习-最小二乘法之线性函数/';
-      var disqus_title = "Python机器学习:最小二乘法之线性函数";
-      var disqus_url = 'http://zzukun.com/2016/05/29/Python机器学习-最小二乘法之线性函数/';
+      var disqus_identifier = '2016/06/02/初次上传代码至github/';
+      var disqus_title = "初次上传代码至github";
+      var disqus_url = 'http://zzukun.com/2016/06/02/初次上传代码至github/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
