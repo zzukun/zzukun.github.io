@@ -252,6 +252,119 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/05/LeetCode之旅，记录各题需注意细节/" itemprop="url">
+                  LeetCode之旅，记录各题需注意细节
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-05T15:08:07+08:00" content="2016-08-05">
+              2016-08-05
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/05/LeetCode之旅，记录各题需注意细节/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/05/LeetCode之旅，记录各题需注意细节/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="PREFACE"><a href="#PREFACE" class="headerlink" title="PREFACE"></a>PREFACE</h1><p>这篇文章记录了我第一次刷LeetCode中遇到的各种问题，所谓查漏补缺，就是要注意自己都错在了哪里，因此本文主要关注于解题中出现的错误。在自我总结的同时也分享给大家参考。所有的AC代码都放在了我的(GITHUB)[<a href="https://github.com/zzukun/LeetCodeSolutions" target="_blank" rel="external">https://github.com/zzukun/LeetCodeSolutions</a>]</p>
+<h1 id="Number1-Two-Sum-Easy"><a href="#Number1-Two-Sum-Easy" class="headerlink" title="Number1: Two Sum - Easy"></a>Number1: Two Sum - Easy</h1><p>各个OJ开篇第一题往往都是比较简单的热身题，此题也不例外。需要注意以下几点：</p>
+<ul>
+<li>sample中的数字都是正数，但是测试样例中有负数。本来希望通过判断x&gt;target来减少遍历的数量，但是有负数这样就不可行了。</li>
+<li>求两个数字的和时，不能同一个位置相加。这两个数字需要取自不同的位置。</li>
+</ul>
+<h1 id="Number2-Add-Two-Numbers-Medium"><a href="#Number2-Add-Two-Numbers-Medium" class="headerlink" title="Number2: Add Two Numbers - Medium"></a>Number2: Add Two Numbers - Medium</h1><p>第二题立马就上升到了Medium难度，果然跟Easy不是一个水准，需要更长的时间思考，同时其中包含的坑也更多。不过这题一次AC了，开森～</p>
+<ul>
+<li>题目给出了链表节点的类，只需复制到自己的方法外边即可，不过这个生成测试样本真是挺麻烦的，不知道有简单的方法没。</li>
+<li>由于是从个位开始向高位链接的，因此<font color="red">两个链表的长度可以不同</font>，而sample给了两个一样长度的，这点容易忽略。</li>
+<li>首先需要进位这个大家应该都能想到，但是进位有几种情况需要考虑，特别是最高一位也需要进位时，需要在循环外边再加上一个val等于1的节点。</li>
+<li>进位有传递性，不只是由上一位的求余得到，而是需要由上一位加进位求余，同样在两个数位数不同时，也要考虑进位的传递。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/15/Back-to-Beginning-Subordinate-Clause/" itemprop="url">
                   Back to Beginning: Subordinate Clause
                 </a>
@@ -1356,107 +1469,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/12/09/a-first-python-article/" itemprop="url">
-                  a first python article
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-09T13:16:02+08:00" content="2015-12-09">
-              2015-12-09
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/12/09/a-first-python-article/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/09/a-first-python-article/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>this is a python type article<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> <span class="string">'hello Python'</span></span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1502,7 +1514,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
