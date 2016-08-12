@@ -316,6 +316,62 @@
 <li>首先需要进位这个大家应该都能想到，但是进位有几种情况需要考虑，特别是最高一位也需要进位时，需要在循环外边再加上一个val等于1的节点。</li>
 <li>进位有传递性，不只是由上一位的求余得到，而是需要由上一位加进位求余，同样在两个数位数不同时，也要考虑进位的传递。</li>
 </ul>
+<h1 id="Number6-ZigZag-Conversion-Easy"><a href="#Number6-ZigZag-Conversion-Easy" class="headerlink" title="Number6: ZigZag Conversion - Easy"></a>Number6: ZigZag Conversion - Easy</h1><p>ZigZag一般是指锯齿形状的小路或者弯弯曲曲的走路。这道题是给定一个ZigZag模式，然后然我们转换为以行的形式输出的模式，其中行数通过函数参数指定。<br>我的思路是根据给定的行数，先构造出一个合适大小的二维数组，随后根据ZigZag走步规则，将字符排列在特定的位置，最后按行输出。</p>
+<ul>
+<li>如果行数为1,直接返回原始字符串即可。</li>
+<li>其他基本没有什么坑。</li>
+</ul>
+<h1 id="Number7-Reverse-Integer-Easy"><a href="#Number7-Reverse-Integer-Easy" class="headerlink" title="Number7: Reverse Integer - Easy"></a>Number7: Reverse Integer - Easy</h1><p>反转一个整数。</p>
+<ul>
+<li>需要注意正负情况，带有“+”，“-”的数字需要考虑。</li>
+<li>注意反转的时候可能会超出MAX_VALUE和MIN_VALUE，这种情况需要返回0</li>
+</ul>
+<h1 id="Number8-String-to-Integer-atoi-Easy"><a href="#Number8-String-to-Integer-atoi-Easy" class="headerlink" title="Number8: String to Integer (atoi) - Easy"></a>Number8: String to Integer (atoi) - Easy</h1><p>目标就是实现C++中的atoi函数。此题通过率低达13.7%，主要原因就是需要考虑的情况很多，而且atoi函数和JAVA中的转化规则也是不同的。需要注意一下坑：</p>
+<ul>
+<li>如果字符串是null以及字符串长度为0（空字符串），那么返回0</li>
+<li>字符串前面可能会出现空格，需要处理这些空格。</li>
+<li>正负号问题。</li>
+<li>超出MAX_VALUE以及MIN_VALUE，需要将其处理为对应的MAX_VALUE和MIN_VALUE。</li>
+<li>经测试，JAVA的long类型不能通过测试样例，需要使用double（float?）计算对应的值，然后再转换为int。</li>
+</ul>
+<h1 id="Number9-Palindrome-Number-Easy"><a href="#Number9-Palindrome-Number-Easy" class="headerlink" title="Number9: Palindrome Number - Easy"></a>Number9: Palindrome Number - Easy</h1><p>判断一个整数，是否是回文。</p>
+<ul>
+<li>负数都不是回文！</li>
+<li>我的思路是转化为字符串然后从中间位置分别向两边逐个字符判断是否相等。</li>
+</ul>
+<h1 id="Number13-Roman-to-Integer-Easy"><a href="#Number13-Roman-to-Integer-Easy" class="headerlink" title="Number13: Roman to Integer - Easy"></a>Number13: Roman to Integer - Easy</h1><p>将罗马数字转换为integer。完全就是考察对罗马数字规则的学习好嘛！规则百度之，学习之，即可。</p>
+<ul>
+<li>没啥坑，错了说明不符合罗马数字的规则。</li>
+</ul>
+<h1 id="Number14-Longest-Common-Prefix-Easy"><a href="#Number14-Longest-Common-Prefix-Easy" class="headerlink" title="Number14: Longest Common Prefix - Easy"></a>Number14: Longest Common Prefix - Easy</h1><p>从若干字符串中，找出最长的共同前缀。</p>
+<ul>
+<li>如果字符串的个数为0,直接返回空字符串””。</li>
+<li>首先求得所有字符串的最小长度，随后以这个最小长度为最大搜索范围，进行比较吧！</li>
+</ul>
+<h1 id="Number19-Remove-Nth-Node-From-End-of-List-Easy"><a href="#Number19-Remove-Nth-Node-From-End-of-List-Easy" class="headerlink" title="Number19: Remove Nth Node From End of List - Easy"></a>Number19: Remove Nth Node From End of List - Easy</h1><p>从一个链表的尾部开始，数N个数，然后移除这个节点。</p>
+<ul>
+<li>题目要求，通过访问一次链表完成这个任务，细节处没什么坑。</li>
+<li>思路：已经知道N，所以先使用一个游标从链表头部移动N次，然后让指向头部的游标和之前移动过的游标同时移动，当后边的游标移动到末尾时，前面的游标就指向我们需要删除的节点。</li>
+</ul>
+<h1 id="Number20-Valid-Parentheses-Easy"><a href="#Number20-Valid-Parentheses-Easy" class="headerlink" title="Number20: Valid Parentheses - Easy"></a>Number20: Valid Parentheses - Easy</h1><p>验证括号的是否正确的配对使用，使用栈成对检测就ok。</p>
+<h1 id="Number21-Merge-Two-Sorted-Lists-Easy"><a href="#Number21-Merge-Two-Sorted-Lists-Easy" class="headerlink" title="Number21: Merge Two Sorted Lists - Easy"></a>Number21: Merge Two Sorted Lists - Easy</h1><p>将两个有序链表融合为一个链表。融合的链表也需要是有序的。</p>
+<ul>
+<li>如果两个链表有一个是null，直接返回另外一个链表即可。</li>
+<li>新建一个链表节点，通过两个游标逐一比较头部节点的值大小即可。</li>
+</ul>
+<h1 id="Number26-Remove-Duplicates-from-Sorted-Array-Easy"><a href="#Number26-Remove-Duplicates-from-Sorted-Array-Easy" class="headerlink" title="Number26: Remove Duplicates from Sorted Array - Easy"></a>Number26: Remove Duplicates from Sorted Array - Easy</h1><p>从有序数组中，移除重复元素。</p>
+<ul>
+<li>如果数组的大小为0或者1,直接返回数组长度即可（因为一定没有重复元素）</li>
+<li>设置一个max_pos游标记录位置，将所有比前边数字大的数字逐一排在max_pos后边即可。</li>
+<li>一开始想的很复杂，觉得需要各种判断来防止过度的排序与交换，但是测试后发现大量测试反而会导致速度下降。</li>
+</ul>
+<h1 id="Number27-Remove-Element-Easy"><a href="#Number27-Remove-Element-Easy" class="headerlink" title="Number27: Remove Element - Easy"></a>Number27: Remove Element - Easy</h1><p>从数组中移除特定值。跟26题很类似，判断是否是特定值，然后交换位置即可，保证保留的元素都在最前边。</p>
+<h1 id="Number28-Implement-strStr-Easy"><a href="#Number28-Implement-strStr-Easy" class="headerlink" title="Number28: Implement strStr() - Easy"></a>Number28: Implement strStr() - Easy</h1><p>实现strStr()函数，从一个字符串中，找出第一个子串所在的起始位置。</p>
+<ul>
+<li>子串为空，则返回0</li>
+<li>子串长度大于字符串，返回-1</li>
+<li>在检索子串的时候，一旦判断出字符串剩下的长度小于子串，应该立刻停止，否则是无法通过部分很长的样例的。</li>
+</ul>
 
           
         
