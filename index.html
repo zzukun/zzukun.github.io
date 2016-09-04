@@ -252,6 +252,161 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/04/JAVA基础：String-StringBuffer-StringBuilder-——区别，用法及常见问题/" itemprop="url">
+                  JAVA基础：String, StringBuffer, StringBuilder ——区别，用法及常见问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-04T11:44:20+08:00" content="2016-09-04">
+              2016-09-04
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/04/JAVA基础：String-StringBuffer-StringBuilder-——区别，用法及常见问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/04/JAVA基础：String-StringBuffer-StringBuilder-——区别，用法及常见问题/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>这几天看到知乎上讨论一道入门级JAVA面试题目，发现自己竟然答不上来，遂查阅相关资料恶补一下。</p>
+<p><strong>问题</strong>：String，StringBuffer和StringBuilder区别？</p>
+<p>衍生问题</p>
+<ul>
+<li><strong>为什么能节省内存？</strong></li>
+<li><strong>string设计为不可变（immutable）的意义是什么？</strong></li>
+<li><strong>JVM回收的速度慢到需要特别重视这个问题吗？</strong></li>
+<li><strong>常量池？GC？JVM优化</strong></li>
+<li><strong>什么是线程（线程安全&amp;非线程安全）？</strong></li>
+<li><strong>如何实现线程安全？有几种方式实现线程安全？</strong></li>
+<li><strong>线程同步？</strong></li>
+<li><strong>JRE中常用的String开头的class有哪些？</strong></li>
+</ul>
+<hr>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><table>
+<thead>
+<tr>
+<th>-</th>
+<th>String</th>
+<th>StringBuffer</th>
+<th>StringBuilder</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可变性</td>
+<td>No(不可变)</td>
+<td>Yes（可变）</td>
+<td>Yes（可变）</td>
+<td></td>
+</tr>
+<tr>
+<td>线程安全</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>简述：JAVA中的String类型是immutable不可变的（被final修饰），因此当修改String的值时，并不是在String原来的空间上修改，而是重新开辟了一段空间存储新的String。这样一来，当需要大量的对String的值进行修改时，每次修改都会生成一个新的常量（放入常量池），特别是当内存中无引用的对象多了以后，JVM的GC就开始工作，性能随之降低。</p>
+<p>而使用StringBuffer类时，每次修改都是在原有的数据上操作，而不是生成新的对象。StringBuilder是StringBuffer的简化版本，StringBuffer是线程安全的，而StringBuilder没有考虑线程安全。</p>
+<p>因此就可得出它们的使用场景：</p>
+<ul>
+<li>String：字符串相加操作少、改动少，使用String;</li>
+<li>StringBuffer：字符串操作较多，涉及多线程;</li>
+<li>StringBuilder ：字符串操作较多，不涉及多线程。</li>
+</ul>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p>1 下面代码的输出结果是什么？<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"HelloWorld"</span>;</span><br><span class="line">String b = <span class="string">"Hello"</span> + <span class="string">"World"</span>;</span><br><span class="line">System.out.println((a==b));</span><br></pre></td></tr></table></figure></p>
+<p>结果：true<br>“Hello” + “World”在编译期间就被优化为”HelloWorld”，因此运行时a与b指向的是同一个对象。</p>
+<p>2 下面代码的输出结果是什么？<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"HelloWorld"</span>;</span><br><span class="line">String b = <span class="string">"Hello"</span>;</span><br><span class="line">String c = b + <span class="string">"World"</span>;</span><br><span class="line">System.out.println((a==c));</span><br></pre></td></tr></table></figure></p>
+<p>结果：false<br>由于有符号引用，b + “World”不会在编译期间被优化，因此c也就不会被当作常量处理，a和c不是指向的同一个对象。</p>
+<p>3 下面代码的输出结果是什么？<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"HelloWorld"</span>;</span><br><span class="line"><span class="keyword">final</span> String b = <span class="string">"Hello"</span>;</span><br><span class="line">String c = b + <span class="string">"World"</span>;</span><br><span class="line">System.out.println((a==c));</span><br></pre></td></tr></table></figure></p>
+<p>结果：true<br>对于final修饰的变量，会在class文件常量池中保存一个副本，对final变量的访问在编译期间都会直接被替代为真实的值，那么String c = b+ “World”在编译期间就会被优化为String c = “Hello” + “World”。<br>但是，如果final String b = getHello();<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Hello"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么结果就是false，因为虽然b被final修饰，但是b的值是通过方法返回的，只能在运行期间确定，因此a与c指向的就不是同一个对象。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/05/LeetCode之旅，记录各题需注意细节/" itemprop="url">
                   LeetCode之旅，记录各题需注意细节
                 </a>
@@ -1402,134 +1557,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/22/markdown/" itemprop="url">
-                  markdown
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-22T10:30:07+08:00" content="2016-03-22">
-              2016-03-22
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/03/22/markdown/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/22/markdown/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="1-输入一段代码"><a href="#1-输入一段代码" class="headerlink" title="1.输入一段代码"></a>1.输入一段代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@date</span></span><br><span class="line"><span class="meta">@description</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># Comment</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'hello world!'</span></span><br></pre></td></tr></table></figure>
-<h3 id="2-绘制表格"><a href="#2-绘制表格" class="headerlink" title="2.绘制表格"></a>2.绘制表格</h3><table>
-<thead>
-<tr>
-<th>项目</th>
-<th style="text-align:right">价格</th>
-<th style="text-align:center">数量</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>计算机</td>
-<td style="text-align:right">\$1600</td>
-<td style="text-align:center">5</td>
-</tr>
-<tr>
-<td>手机</td>
-<td style="text-align:right">\$12</td>
-<td style="text-align:center">12</td>
-</tr>
-<tr>
-<td>管线</td>
-<td style="text-align:right">\$1</td>
-<td style="text-align:center">234</td>
-</tr>
-</tbody>
-</table>
-<h3 id="3-使用HTML标签"><a href="#3-使用HTML标签" class="headerlink" title="3.使用HTML标签"></a>3.使用HTML标签</h3><p><font color="red">Red Font</font><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span> = <span class="string">"red"</span>&gt;</span>Red Font<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1575,7 +1602,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

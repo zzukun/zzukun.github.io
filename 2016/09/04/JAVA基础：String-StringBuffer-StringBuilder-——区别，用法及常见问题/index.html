@@ -84,19 +84,43 @@
 
 
 
-<meta name="description" content="最小二乘法 之 线性函数模型原理可参考维基百科 最小二乘法中间计算过程有多种方法（如梯度下降），本文采用维基百科最后介绍的广义逆矩阵的方法计算。即输入矩阵的广义逆矩阵&amp;lt;点乘&amp;gt;输出矩阵 ，运算结果既为求解的 参数矩阵。
-需要用到的函数为 pinv ，matlab中pinv(X) , Python中numpy库中有此函数，即 ： np.linalg.pinv代码：1234567891011">
+<meta name="description" content="引言这几天看到知乎上讨论一道入门级JAVA面试题目，发现自己竟然答不上来，遂查阅相关资料恶补一下。
+问题：String，StringBuffer和StringBuilder区别？
+衍生问题
+
+为什么能节省内存？
+string设计为不可变（immutable）的意义是什么？
+JVM回收的速度慢到需要特别重视这个问题吗？
+常量池？GC？JVM优化
+什么是线程（线程安全&amp;amp;非线程安全）？
+如何实现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python机器学习:最小二乘法之线性函数">
-<meta property="og:url" content="http://zzukun.com/2016/05/29/Python机器学习-最小二乘法之线性函数/index.html">
+<meta property="og:title" content="JAVA基础：String, StringBuffer, StringBuilder ——区别，用法及常见问题">
+<meta property="og:url" content="http://zzukun.com/2016/09/04/JAVA基础：String-StringBuffer-StringBuilder-——区别，用法及常见问题/index.html">
 <meta property="og:site_name" content="Kun Li's Homepage">
-<meta property="og:description" content="最小二乘法 之 线性函数模型原理可参考维基百科 最小二乘法中间计算过程有多种方法（如梯度下降），本文采用维基百科最后介绍的广义逆矩阵的方法计算。即输入矩阵的广义逆矩阵&amp;lt;点乘&amp;gt;输出矩阵 ，运算结果既为求解的 参数矩阵。
-需要用到的函数为 pinv ，matlab中pinv(X) , Python中numpy库中有此函数，即 ： np.linalg.pinv代码：1234567891011">
-<meta property="og:updated_time" content="2016-05-29T11:41:08.553Z">
+<meta property="og:description" content="引言这几天看到知乎上讨论一道入门级JAVA面试题目，发现自己竟然答不上来，遂查阅相关资料恶补一下。
+问题：String，StringBuffer和StringBuilder区别？
+衍生问题
+
+为什么能节省内存？
+string设计为不可变（immutable）的意义是什么？
+JVM回收的速度慢到需要特别重视这个问题吗？
+常量池？GC？JVM优化
+什么是线程（线程安全&amp;amp;非线程安全）？
+如何实现">
+<meta property="og:updated_time" content="2016-09-04T03:44:49.132Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python机器学习:最小二乘法之线性函数">
-<meta name="twitter:description" content="最小二乘法 之 线性函数模型原理可参考维基百科 最小二乘法中间计算过程有多种方法（如梯度下降），本文采用维基百科最后介绍的广义逆矩阵的方法计算。即输入矩阵的广义逆矩阵&amp;lt;点乘&amp;gt;输出矩阵 ，运算结果既为求解的 参数矩阵。
-需要用到的函数为 pinv ，matlab中pinv(X) , Python中numpy库中有此函数，即 ： np.linalg.pinv代码：1234567891011">
+<meta name="twitter:title" content="JAVA基础：String, StringBuffer, StringBuilder ——区别，用法及常见问题">
+<meta name="twitter:description" content="引言这几天看到知乎上讨论一道入门级JAVA面试题目，发现自己竟然答不上来，遂查阅相关资料恶补一下。
+问题：String，StringBuffer和StringBuilder区别？
+衍生问题
+
+为什么能节省内存？
+string设计为不可变（immutable）的意义是什么？
+JVM回收的速度慢到需要特别重视这个问题吗？
+常量池？GC？JVM优化
+什么是线程（线程安全&amp;amp;非线程安全）？
+如何实现">
 
 
 
@@ -114,7 +138,7 @@
   };
 </script>
 
-  <title> Python机器学习:最小二乘法之线性函数 | Kun Li's Homepage </title>
+  <title> JAVA基础：String, StringBuffer, StringBuilder ——区别，用法及常见问题 | Kun Li's Homepage </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -253,7 +277,7 @@
             
             
               
-                Python机器学习:最小二乘法之线性函数
+                JAVA基础：String, StringBuffer, StringBuilder ——区别，用法及常见问题
               
             
           </h1>
@@ -265,8 +289,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-29T18:07:49+08:00" content="2016-05-29">
-              2016-05-29
+            <time itemprop="dateCreated" datetime="2016-09-04T11:44:20+08:00" content="2016-09-04">
+              2016-09-04
             </time>
           </span>
 
@@ -276,8 +300,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/29/Python机器学习-最小二乘法之线性函数/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/29/Python机器学习-最小二乘法之线性函数/" itemprop="commentsCount"></span>
+                <a href="/2016/09/04/JAVA基础：String-StringBuffer-StringBuilder-——区别，用法及常见问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/04/JAVA基础：String-StringBuffer-StringBuilder-——区别，用法及常见问题/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -300,11 +324,61 @@
       
 
       
-        <p>最小二乘法 之 线性函数模型<br>原理可参考维基百科 <a href="https://zh.wikipedia.org/wiki/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95" target="_blank" rel="external">最小二乘法</a><br>中间计算过程有多种方法（如梯度下降），本文采用维基百科最后介绍的<font color="red">广义逆矩阵</font>的方法计算。<br>即输入矩阵的广义逆矩阵&lt;点乘&gt;输出矩阵 ，运算结果既为求解的 参数矩阵。</p>
-<p>需要用到的函数为 pinv ，matlab中pinv(X) , Python中numpy库中有此函数，即 ： np.linalg.pinv<br>代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Global Vars  </span></span><br><span class="line"><span class="keyword">global</span> params</span><br><span class="line">  </span><br><span class="line"><span class="comment">#train function  </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(train_x , train_y)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> params</span><br><span class="line">  </span><br><span class="line">    pinv = np.linalg.pinv(train_x)  <span class="comment"># cacul the pseudo-inverse matrix</span></span><br><span class="line">      </span><br><span class="line">    params = np.dot( pinv , train_y ) <span class="comment"># figure out the params</span></span><br><span class="line">    print(<span class="string">'The params:'</span>)</span><br><span class="line">    print(params)</span><br></pre></td></tr></table></figure></p>
-<p>np.linalg.pinv求得train_x的广义逆矩阵 pinv ， pinv 点乘 train_y 即得参数矩阵 params<br>以上即为训练过程。</p>
-<p>随后可以进行回归：  即将测试数据的x矩阵点乘参数矩阵 ，可得模型得到的输出。<br>代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#test function  </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(test_x , test_y , result_path)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> params</span><br><span class="line">  </span><br><span class="line">    rs = open(result_path , <span class="string">'w'</span>)</span><br><span class="line">  </span><br><span class="line">    regressValue = np.dot(test_x,params)</span><br><span class="line">    print(<span class="string">'The regress value of test data:'</span>)</span><br><span class="line">    print(regressValue)</span><br><span class="line">  </span><br><span class="line">    print(<span class="string">'-------------------------------------------------------'</span>)</span><br><span class="line">    print(<span class="string">'The errors:'</span>)</span><br><span class="line">    err = regressValue - test_y</span><br><span class="line">    print(err)</span><br><span class="line">    print(<span class="string">'The RMSE(root mean squared error) is:'</span>)</span><br><span class="line">    MRSE  =  math.sqrt(np.sum(np.square(err)) / regressValue.size)</span><br><span class="line">    print(MRSE)</span><br><span class="line">    print(<span class="string">'-------------------------------------------------------'</span>)</span><br></pre></td></tr></table></figure></p>
-<p>回归完成以后，可以通过MRSE（root mean squared error）观察回归效果。<br>代码下载地址：<a href="http://download.csdn.net/detail/zzukun/9210049" target="_blank" rel="external">点我进入下载页面</a></p>
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>这几天看到知乎上讨论一道入门级JAVA面试题目，发现自己竟然答不上来，遂查阅相关资料恶补一下。</p>
+<p><strong>问题</strong>：String，StringBuffer和StringBuilder区别？</p>
+<p>衍生问题</p>
+<ul>
+<li><strong>为什么能节省内存？</strong></li>
+<li><strong>string设计为不可变（immutable）的意义是什么？</strong></li>
+<li><strong>JVM回收的速度慢到需要特别重视这个问题吗？</strong></li>
+<li><strong>常量池？GC？JVM优化</strong></li>
+<li><strong>什么是线程（线程安全&amp;非线程安全）？</strong></li>
+<li><strong>如何实现线程安全？有几种方式实现线程安全？</strong></li>
+<li><strong>线程同步？</strong></li>
+<li><strong>JRE中常用的String开头的class有哪些？</strong></li>
+</ul>
+<hr>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><table>
+<thead>
+<tr>
+<th>-</th>
+<th>String</th>
+<th>StringBuffer</th>
+<th>StringBuilder</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可变性</td>
+<td>No(不可变)</td>
+<td>Yes（可变）</td>
+<td>Yes（可变）</td>
+<td></td>
+</tr>
+<tr>
+<td>线程安全</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>简述：JAVA中的String类型是immutable不可变的（被final修饰），因此当修改String的值时，并不是在String原来的空间上修改，而是重新开辟了一段空间存储新的String。这样一来，当需要大量的对String的值进行修改时，每次修改都会生成一个新的常量（放入常量池），特别是当内存中无引用的对象多了以后，JVM的GC就开始工作，性能随之降低。</p>
+<p>而使用StringBuffer类时，每次修改都是在原有的数据上操作，而不是生成新的对象。StringBuilder是StringBuffer的简化版本，StringBuffer是线程安全的，而StringBuilder没有考虑线程安全。</p>
+<p>因此就可得出它们的使用场景：</p>
+<ul>
+<li>String：字符串相加操作少、改动少，使用String;</li>
+<li>StringBuffer：字符串操作较多，涉及多线程;</li>
+<li>StringBuilder ：字符串操作较多，不涉及多线程。</li>
+</ul>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p>1 下面代码的输出结果是什么？<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"HelloWorld"</span>;</span><br><span class="line">String b = <span class="string">"Hello"</span> + <span class="string">"World"</span>;</span><br><span class="line">System.out.println((a==b));</span><br></pre></td></tr></table></figure></p>
+<p>结果：true<br>“Hello” + “World”在编译期间就被优化为”HelloWorld”，因此运行时a与b指向的是同一个对象。</p>
+<p>2 下面代码的输出结果是什么？<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"HelloWorld"</span>;</span><br><span class="line">String b = <span class="string">"Hello"</span>;</span><br><span class="line">String c = b + <span class="string">"World"</span>;</span><br><span class="line">System.out.println((a==c));</span><br></pre></td></tr></table></figure></p>
+<p>结果：false<br>由于有符号引用，b + “World”不会在编译期间被优化，因此c也就不会被当作常量处理，a和c不是指向的同一个对象。</p>
+<p>3 下面代码的输出结果是什么？<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"HelloWorld"</span>;</span><br><span class="line"><span class="keyword">final</span> String b = <span class="string">"Hello"</span>;</span><br><span class="line">String c = b + <span class="string">"World"</span>;</span><br><span class="line">System.out.println((a==c));</span><br></pre></td></tr></table></figure></p>
+<p>结果：true<br>对于final修饰的变量，会在class文件常量池中保存一个副本，对final变量的访问在编译期间都会直接被替代为真实的值，那么String c = b+ “World”在编译期间就会被优化为String c = “Hello” + “World”。<br>但是，如果final String b = getHello();<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Hello"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么结果就是false，因为虽然b被final修饰，但是b的值是通过方法返回的，只能在运行期间确定，因此a与c指向的就不是同一个对象。</p>
 
       
     </div>
@@ -329,17 +403,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/22/Ubuntu指令与快捷键/" rel="next" title="Ubuntu指令与快捷键">
-                <i class="fa fa-chevron-left"></i> Ubuntu指令与快捷键
+              <a href="/2016/08/05/LeetCode之旅，记录各题需注意细节/" rel="next" title="LeetCode之旅，记录各题需注意细节">
+                <i class="fa fa-chevron-left"></i> LeetCode之旅，记录各题需注意细节
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/01/ubuntu编译运行c代码-g/" rel="prev" title="ubuntu编译运行c代码(g++)">
-                ubuntu编译运行c代码(g++) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -466,7 +536,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">1.2.</span> <span class="nav-text">常见问题</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -593,9 +663,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'zzukun';
-      var disqus_identifier = '2016/05/29/Python机器学习-最小二乘法之线性函数/';
-      var disqus_title = "Python机器学习:最小二乘法之线性函数";
-      var disqus_url = 'http://zzukun.com/2016/05/29/Python机器学习-最小二乘法之线性函数/';
+      var disqus_identifier = '2016/09/04/JAVA基础：String-StringBuffer-StringBuilder-——区别，用法及常见问题/';
+      var disqus_title = "JAVA基础：String, StringBuffer, StringBuilder ——区别，用法及常见问题";
+      var disqus_url = 'http://zzukun.com/2016/09/04/JAVA基础：String-StringBuffer-StringBuilder-——区别，用法及常见问题/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
