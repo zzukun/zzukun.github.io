@@ -1417,7 +1417,8 @@
             <h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p><font color="red">修改hosts文件、修改IP后重启网络服务：</font><br>sudo /etc/init.d/networking restart</p>
 <p><font color="red">清屏：</font><br>clear</p>
 <p><font color="red">新建文件：</font><br>touch helloworld.txt    (新建文件helloworld.txt</p>
-<p><font color="red">移动文件：</font><br>mv 文件路径 文件夹名<br>例如： mv hello.c ./folder/<br>如果第二个参数是同路径文件名，而不是路径名，例如<br>mv hello.c world.c<br>那么就是将文件hello.c重命名为world.c</p>
+<p><font color="red">新建文件夹：</font><br>mkdir 文件夹名</p>
+<p><font color="red">移动文件：</font><br>mv 文件路径 文件夹名<br>例如： mv hello.c ./folder/<br>如果第二个参数是同路径文件名，而不是路径名，例如<br>mv hello.c world.c<br>那么就是将文件hello.c<strong>重命名</strong>为world.c</p>
 <p><font color="red">删除文件：</font><br>rm 文件名 （删除一个文件<br>rm -r 文件夹名 （删除一个非空文件夹<br>rm -rf 文件夹名 （强力删除一个非空文件夹，不要求确认</p>
 <p><font color="red">查看内存与CPU的使用情况：</font><br>top<br>输入top命令后可以查看各个进程的PID<br>假设我们想要关闭某个进程，其PID是123，那么：<br>sudo kill 123</p>
 <p>另外还有选项来强制退出一个进程：<br>sudo kill -9 123</p>
