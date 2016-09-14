@@ -1,0 +1,642 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言17年网易笔试有一道编程题目《跳石板》，newcoder OJ链接如下：跳石板-牛客网题目描述如下：
+
+小易来到了一条石板路前，每块石板上从1挨着编号为：1、2、3…….这条石板路要根据特殊的规则才能前进：对于小易当前所在的编号为K的 石板，小易单次只能往前跳K的一个约数(不含1和K)步，即跳到K+X(X为K的一个非1和本身的约数)的位置。 小易当前处在编号为N的石板，他想跳到编号恰好为M的石">
+<meta property="og:type" content="article">
+<meta property="og:title" content="17网易笔试-跳石板：广度优先搜索">
+<meta property="og:url" content="http://zzukun.com/2016/09/14/17网易笔试-跳石板：广度优先搜索/index.html">
+<meta property="og:site_name" content="Kun Li's Homepage">
+<meta property="og:description" content="前言17年网易笔试有一道编程题目《跳石板》，newcoder OJ链接如下：跳石板-牛客网题目描述如下：
+
+小易来到了一条石板路前，每块石板上从1挨着编号为：1、2、3…….这条石板路要根据特殊的规则才能前进：对于小易当前所在的编号为K的 石板，小易单次只能往前跳K的一个约数(不含1和K)步，即跳到K+X(X为K的一个非1和本身的约数)的位置。 小易当前处在编号为N的石板，他想跳到编号恰好为M的石">
+<meta property="og:image" content="http://img.blog.csdn.net/20160914213003489">
+<meta property="og:updated_time" content="2016-09-14T14:06:39.548Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="17网易笔试-跳石板：广度优先搜索">
+<meta name="twitter:description" content="前言17年网易笔试有一道编程题目《跳石板》，newcoder OJ链接如下：跳石板-牛客网题目描述如下：
+
+小易来到了一条石板路前，每块石板上从1挨着编号为：1、2、3…….这条石板路要根据特殊的规则才能前进：对于小易当前所在的编号为K的 石板，小易单次只能往前跳K的一个约数(不含1和K)步，即跳到K+X(X为K的一个非1和本身的约数)的位置。 小易当前处在编号为N的石板，他想跳到编号恰好为M的石">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160914213003489">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 17网易笔试-跳石板：广度优先搜索 | Kun Li's Homepage </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-71208008-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?31a14e7eb8f581da4f90934c3270493c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Kun Li's Homepage</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">likun@stu.zzu.edu.cn</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                17网易笔试-跳石板：广度优先搜索
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-14T22:05:30+08:00" content="2016-09-14">
+              2016-09-14
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/14/17网易笔试-跳石板：广度优先搜索/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/14/17网易笔试-跳石板：广度优先搜索/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>17年网易笔试有一道编程题目《跳石板》，newcoder OJ链接如下：<br><a href="http://www.nowcoder.com/questionTerminal/4284c8f466814870bae7799a07d49ec8" target="_blank" rel="external">跳石板-牛客网</a><br>题目描述如下：</p>
+<blockquote>
+<p>小易来到了一条石板路前，每块石板上从1挨着编号为：1、2、3…….<br>这条石板路要根据特殊的规则才能前进：对于小易当前所在的编号为K的 石板，小易单次只能往前跳K的一个约数(不含1和K)步，即跳到K+X(X为K的一个非1和本身的约数)的位置。 小易当前处在编号为N的石板，他想跳到编号恰好为M的石板去，小易想知道最少需要跳跃几次可以到达。<br>例如：<br>N = 4，M = 24：<br>4-&gt;6-&gt;8-&gt;12-&gt;18-&gt;24<br>于是小易最少需要跳跃5次，就可以从4号石板跳到24号石板 </p>
+</blockquote>
+<p>没有实战过图搜索的题，考试中没啥思路，下来赶紧看看了解答，随后总结为此文。</p>
+<p>本文首发：<br><a href="http://blog.csdn.net/zzukun/article/details/52541220" target="_blank" rel="external">http://blog.csdn.net/zzukun/article/details/52541220</a><br>zzukun.com<br>转载请联系作者 likun@stu.zzu.edu.cn</p>
+<h2 id="广度优先搜索"><a href="#广度优先搜索" class="headerlink" title="广度优先搜索"></a>广度优先搜索</h2><p>Breadth First Search （BFS）是一种图搜索算法，BFS首先从源定点<em>s</em>开始，沿着<em>s</em>节点的宽度遍历节点，当所有跟<em>s</em>节点临接的节点都被访问过以后，再继续向下一层访问。<br>如下图所示<br><img src="http://img.blog.csdn.net/20160914213003489" alt="这里写图片描述"><br>遍历顺序即为：1-2-3-4-5-6-7-8-9-10-11-12</p>
+<h2 id="想法一"><a href="#想法一" class="headerlink" title="想法一"></a>想法一</h2><p>首先最朴素的想法就是枚举N的所有约数（除了1和其本身），然后将所有约数与X的和作为N的子孙，构建一棵树以后，第一个值等于M的叶子节点的深度，即为最小跳跃次数。<br>节点可以通过一个类来定义，比如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    Node parent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>或者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    <span class="keyword">int</span> depth; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样通过一个队列Q一步步广搜即可，但是实现想法以后，不论如何增加限制条件都Timeout，当M大于1000以后就基本上GG了，速度非常非常慢，为什么呢？OK，我们换个思路，继续。</p>
+<h2 id="想法二"><a href="#想法二" class="headerlink" title="想法二"></a>想法二</h2><p>既然简单的使用构建搜索树的方法行不通，我们换个思路。既然是广度搜索，每次遍历一层，那么我们就尝试每次循环记录一层的数字进行计算。<br>1、声明一个List curr存储一层节点，通过约数，计算下一层节点（比如一开始List只有一个数字N=4，通过计算约数，下一层就是有一个数字4+2=6）。<br>2、通过一个临时List tmp来存储计算的加过约数的和。<br>3、下一个循环用tmp替换curr。<br>类似于一下结构</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List curr = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">curr.add(N);</span><br><span class="line"><span class="keyword">while</span>(flag)&#123;</span><br><span class="line">    List tmp = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    tmp.add(所有求得的约数);</span><br><span class="line">    curr = tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这时输出每一次循环的curr发现，每一层有很多重复数值的节点，显然这些重复数值的节点再次计算是很浪费时间的。比如：</p>
+<p>从n=4开始，第三层：<br>[8, 9, 8]<br>这就有两个8，那么这两个8继续分别向下计算，显然重复，因此可以合并一层中所有重复的值。<br>[8, 9]</p>
+<p>OK，让我们上传OJ运行试试看…Sad，仍然Timeout。这是为什么呢~</p>
+<h2 id="想法三"><a href="#想法三" class="headerlink" title="想法三"></a>想法三</h2><p>在想法二的基础上，把M设置的大一些，不断地输出每一层的值就会发现，除了一层中可能出现的重复情况，各个层之间也会出现很多的相同值得节点，对呀，这就像题目中说的上楼梯，每一层楼梯都是固定的，到每一层阶梯的最小值通过广搜已经计算过了，再重复计算并没有什么用啊！这就回归到了DP的思想了。<br>因此最终改良版本，只需定义一个合适大小的数组，这个数组大小大于M，初始值设置为-1，表示没有到过，对所有没有到过的，只记录一次首次到达的前进次数（层数）即可。随后这个位置的儿子节点都无需再遍历了！<br>OK，最终代码如下，终于通过，感人，TAT<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> n = sc.nextInt();</span><br><span class="line">        <span class="keyword">int</span> m = sc.nextInt();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] dst = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>*m];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;dst.length;i++)</span><br><span class="line">            dst[i] = -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        dst[n] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        Queue&lt;Integer&gt; Q = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        Q.offer(n);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(!Q.isEmpty())&#123;</span><br><span class="line">            <span class="keyword">int</span> x = Q.poll();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>; i*i &lt;= x ; i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(x%i == <span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(x+i&lt;= m &amp;&amp; dst[x+i] == -<span class="number">1</span>) &#123;</span><br><span class="line">                        Q.offer(x + i);</span><br><span class="line">                        dst[x+i] = dst[x] + <span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(x+x/i &lt;= m &amp;&amp; dst[x+x/i] == -<span class="number">1</span>)&#123;</span><br><span class="line">                        Q.offer( x + x/i);</span><br><span class="line">                        dst[x+ x/i] = dst[x] + <span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        System.out.println(dst[m]);</span><br><span class="line">        </span><br><span class="line">        sc.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Main().run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="约数的计算"><a href="#约数的计算" class="headerlink" title="约数的计算"></a>约数的计算</h2><p>通过上一节的程序我们可以看到，计算x的约数<font color="red">无需从1遍历到x</font>，而是只需从1遍历到<strong>sqrt(x)</strong>。<br>随后，x的约数就是2~sqrt(x)之间的i，还有对应的<strong>x/i</strong>。<br>这样就降低了搜索空间。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1、算法复杂度太高，首先一点就是能不能减少无谓的重复计算？<br>2、减少重复计算的方式就是拿空间换时间，通过记录来避免重复部分的计算。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/04/JAVA基础：String-StringBuffer-StringBuilder-——区别，用法及常见问题/" rel="next" title="JAVA基础：String, StringBuffer, StringBuilder ——区别，用法及常见问题">
+                <i class="fa fa-chevron-left"></i> JAVA基础：String, StringBuffer, StringBuilder ——区别，用法及常见问题
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/8072908?v=3&s=460"
+               alt="Kun Li" />
+          <p class="site-author-name" itemprop="name">Kun Li</p>
+          <p class="site-description motion-element" itemprop="description">You are not Prepared!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zzukun" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/zzukun" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#广度优先搜索"><span class="nav-number">2.</span> <span class="nav-text">广度优先搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#想法一"><span class="nav-number">3.</span> <span class="nav-text">想法一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#想法二"><span class="nav-number">4.</span> <span class="nav-text">想法二</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#想法三"><span class="nav-number">5.</span> <span class="nav-text">想法三</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#约数的计算"><span class="nav-number">6.</span> <span class="nav-text">约数的计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kun Li</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'zzukun';
+      var disqus_identifier = '2016/09/14/17网易笔试-跳石板：广度优先搜索/';
+      var disqus_title = "17网易笔试-跳石板：广度优先搜索";
+      var disqus_url = 'http://zzukun.com/2016/09/14/17网易笔试-跳石板：广度优先搜索/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
